@@ -1,6 +1,6 @@
 <template>
   <input
-    class="relative transition-shadow duration-300 z-40 w-full px-4 py-2 rounded-full text-lg font-bold shadow-lg text-blue-900 outline-none focus:ring-2 ring-blue-800 caret-current"
+    :class="classObject"
     :value="value"
     :placeholder="placeholder"
     :type="type"
@@ -9,8 +9,10 @@
   />
 </template>
 
+<!-- animate animate-shake relative transition-shadow duration-300 z-40 w-full px-4 py-2 rounded-full text-lg font-bold shadow-lg text-blue-900 outline-none focus:ring-2 ring-blue-800 caret-current -->
+
 <script setup lang="ts">
-import { toRefs } from 'vue';
+import { computed, toRefs } from 'vue';
 
 const props = defineProps({
   value: {
@@ -25,11 +27,22 @@ const props = defineProps({
     type: String,
     default: 'text',
   },
+  error: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits(['update:value', 'submit'])
 
 const { value } = toRefs(props)
+
+const classObject = computed(() => {
+  return {
+    'relative transition-shadow duration-300 z-40 w-full px-4 py-2 rounded-full text-lg font-bold shadow-lg text-blue-900 outline-none focus:ring-2 ring-blue-800 caret-current': true,
+    'animate animate-shake': props.error,
+  }
+})
 
 const handleChangeValue = (event: Event) => {
   const target = event.target as HTMLInputElement
