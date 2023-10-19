@@ -9,6 +9,7 @@ const countryStore = useCountryStore();
 const paths = ref<NodeListOf<SVGPathElement>>();
 
 const listCountries = computed(() => {
+  console.log('listCountries', countryStore.getListCountries);
   return countryStore.getListCountries;
 });
 
@@ -17,8 +18,9 @@ watch(listCountries.value, () => {
 });
 
 const countriesIsSelected = () => {
+  console.log('countriesIsSelected', paths.value, listCountries.value, getCountryByCode('AD'));
   paths.value && paths.value.forEach((path) => {
-    if (listCountries.value.includes(getCountryByCode(path.id))) path.classList.add('selected');
+    if (listCountries.value.includes(path.id)) path.classList.add('selected');
   });
 };
 

@@ -15,3 +15,11 @@ export const getCountryCode = (country: string): string => {
 export const getCountryByCode = (code: string): string => {
   return listCountry.find((countryObj) => countryObj.code.toLowerCase() === code.toLowerCase())?.name || '';
 }
+
+export const getCodeOfCountry = (country: string): string => {
+  return listCountry.find((countryObj) => countryObj.name.toLowerCase() === country.toLowerCase())?.code || '';
+}
+
+export const getCountAllCountry = (): number => {
+  return listCountry.length;
+}

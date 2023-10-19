@@ -1,55 +1,68 @@
 <template>
-  <input
-    :class="classObject"
-    :value="value"
-    :placeholder="placeholder"
-    :type="type"
-    @input="handleChangeValue"
-    @keydown.enter="handleSubmit"
-  />
+  <div class="relative grow">
+    <input
+      :class="classObject"
+      :value="value"
+      :placeholder="placeholder"
+      :type="type"
+      @input="handleChangeValue"
+      @keydown.enter="handleSubmit"
+    />
+    <div
+      v-if="alreadyFound"
+      class="absolute right-0 top-0 z-50 h-full flex items-center my-auto pointer-events-none opacity-100 py-1 pr-1"
+    >
+      <div class="bg-teal-500 rounded-full h-full flex items-center justify-center px-4">
+        <span class="text-white">Already found !</span>
+      </div>
+    </div>
+  </div>
 </template>
 
-<!-- animate animate-shake relative transition-shadow duration-300 z-40 w-full px-4 py-2 rounded-full text-lg font-bold shadow-lg text-blue-900 outline-none focus:ring-2 ring-blue-800 caret-current -->
-
 <script setup lang="ts">
-import { computed, toRefs } from 'vue';
+import { computed, toRefs } from "vue";
 
 const props = defineProps({
   value: {
     type: String,
-    default: '',
+    default: "",
   },
   placeholder: {
     type: String,
-    default: 'Enter text',
+    default: "Enter text",
   },
   type: {
     type: String,
-    default: 'text',
+    default: "text",
   },
   error: {
     type: Boolean,
     default: false,
   },
-})
+  alreadyFound: {
+    type: Boolean,
+    default: false,
+  },
+});
 
-const emit = defineEmits(['update:value', 'submit'])
+const emit = defineEmits(["update:value", "submit"]);
 
-const { value } = toRefs(props)
+const { value } = toRefs(props);
 
 const classObject = computed(() => {
   return {
-    'relative transition-shadow duration-300 z-40 w-full px-4 py-2 rounded-full text-lg font-bold shadow-lg text-blue-900 outline-none focus:ring-2 ring-blue-800 caret-current': true,
-    'animate animate-shake': props.error,
-  }
-})
+    "relative transition-shadow duration-300 z-40 w-full px-4 py-2 rounded-full text-lg font-bold shadow-lg text-blue-900 outline-none focus:ring-2 ring-blue-800 caret-current":
+      true,
+    "animate animate-shake": props.error,
+  };
+});
 
 const handleChangeValue = (event: Event) => {
-  const target = event.target as HTMLInputElement
-  emit('update:value', target.value)
-}
+  const target = event.target as HTMLInputElement;
+  emit("update:value", target.value);
+};
 
 const handleSubmit = () => {
-  emit('submit')
-}
+  emit("submit");
+};
 </script>

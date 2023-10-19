@@ -1,24 +1,24 @@
 import { defineStore } from "pinia";
 
 interface CountryState {
-  listCountry: string[];
+  listCountries: string[];
 }
 
 const initialState: CountryState = {
-  listCountry: [],
+  listCountries: [],
 };
 
 export const useCountryStore = defineStore("country", {
   state: (): CountryState => initialState,
   getters: {
-    getListCountries: (state) => state.listCountry,
+    getListCountries: (state) => state.listCountries,
   },
   actions: {
     addCountry(country: string) {
-      this.listCountry.push(country);
+      this.listCountries.push(country);
     },
     reset() {
-      this.listCountry = [];
+      this.listCountries = [];
     }
   },
 });
