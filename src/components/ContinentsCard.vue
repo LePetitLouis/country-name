@@ -11,16 +11,17 @@
       <ol class="grid grid-cols-2 gap-4">
         <template v-for="(continent, index) in continents" :key="index">
           <li class="flex flex-col justify-between mb-2">
-            <span class="text-sm text-stone-800">{{ continent }}</span>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-stone-800">{{ continent }}</span>
+              <span class="text-[.6rem] text-stone-800"
+                >{{ percentageCountriesFoundByContinent(continent) }}%</span
+              >
+            </div>
             <div class="h-1 w-full bg-neutral-200">
               <div
                 class="h-1 bg-orange"
                 :style="{
-                  width:
-                    (totalCountriesFoundOfContinent(continent) /
-                      totalCountriesOfContinent(continent)) *
-                      100 +
-                    '%',
+                  width: percentageCountriesFoundByContinent(continent) + '%',
                 }"
               ></div>
             </div>
@@ -61,5 +62,13 @@ const totalCountriesFoundOfContinent = (continent: string) => {
     countries.includes(country)
   );
   return countriesFound.length;
+};
+
+const percentageCountriesFoundByContinent = (continent: string) => {
+  return (
+    Math.round((totalCountriesFoundOfContinent(continent) /
+      totalCountriesOfContinent(continent)) *
+    100)
+  );
 };
 </script>
