@@ -1,22 +1,60 @@
 <template>
-  <aside class="h-full p-6 z-10 overflow-y-auto xl:w-[28rem] lg:w-96 hidden shadow-lg lg:block bg-blue-50">
+  <aside
+    class="h-full p-6 z-10 overflow-y-auto xl:w-[28rem] lg:w-96 hidden shadow-lg lg:block bg-blue-50"
+  >
     <div class="mb-2">
       <div class="mb-2">
-        <span class="text-lg @md:text-2xl font-bold"> {{ percentageOffound }}</span>
+        <span class="text-lg @md:text-2xl font-bold">
+          {{ percentageOffound }}</span
+        >
         <span class="text-lg @md:text-2xl font-bold"> % </span>
         <span class="text-sm">of countries found</span>
       </div>
+      <div>
+        <ol class="grid grid-cols-2 gap-4">
+          <template v-for="(continent, index) in continents" :key="index">
+            <li class="flex flex-col justify-between mb-4">
+              <span class="text-sm text-blue-950">{{ continent }}</span>
+              <div class="h-1 w-full bg-neutral-200 dark:bg-neutral-600">
+                <div
+                  class="h-1 bg-black"
+                  :style="{
+                    width:
+                      (totalCountriesFoundOfContinent(continent) /
+                        totalCountriesOfContinent(continent)) *
+                        100 +
+                      '%',
+                  }"
+                ></div>
+              </div>
+            </li>
+          </template>
+        </ol>
+      </div>
     </div>
-    <hr class="w-full border-b border-blue-100 my-4">
+    <hr class="w-full border-b border-blue-100 my-4" />
     <div v-if="totalCountriesFound">
       <div class="flex justify-between items-center mb-4">
-        <p class="text-sm uppercase text-blue-900 text-opacity-75">{{ totalCountriesFound }} {{ label }}</p>
+        <p class="text-sm uppercase text-blue-900 text-opacity-75">
+          {{ totalCountriesFound }} {{ label }}
+        </p>
       </div>
       <ol>
-        <template v-for="(country, index) in countryStore.getListCountries" :key="index">
-          <li class="transition-all duration-250 h-8 opacity-100 flex items-center">
-            <img :src="`./src/assets/icons/${country.toLocaleLowerCase()}.svg`" :alt="country" class="w-5 h-5 -mr-0.5">
-            <span class="ml-2.5 max-w-md truncate">{{ getCountryByCode(country) }}</span>
+        <template
+          v-for="(country, index) in countryStore.getListCountries"
+          :key="index"
+        >
+          <li
+            class="transition-all duration-250 h-8 opacity-100 flex items-center"
+          >
+            <img
+              :src="`./src/assets/icons/${country.toLocaleLowerCase()}.svg`"
+              :alt="country"
+              class="w-5 h-5 -mr-0.5"
+            />
+            <span class="ml-2.5 max-w-md truncate">{{
+              getCountryByCode(country)
+            }}</span>
           </li>
         </template>
       </ol>
@@ -25,11 +63,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed } from "vue";
 
-import { useCountryStore } from '@/store/country';
+import { useCountryStore } from "@/store/country";
 
-import { getCountAllCountry, getCountryByCode } from '@/utils/country';
+import { getCountAllCountry, getCountryByCode } from "@/utils/country";
+import {
+  listContinents,
+  countriesOfContinent,
+  totalCountriesOfContinent,
+} from "@/utils/continent";
 
 const countryStore = useCountryStore();
 
@@ -38,10 +81,25 @@ const totalCountriesFound = computed(() => {
 });
 
 const label = computed(() => {
-  return countryStore.getListCountries.length > 1 ? 'countries' : 'country';
+  return countryStore.getListCountries.length > 1 ? "countries" : "country";
 });
 
 const percentageOffound = computed(() => {
-  return Math.round((countryStore.getListCountries.length / getCountAllCountry()) * 100);
+  return Math.round(
+    (countryStore.getListCountries.length / getCountAllCountry()) * 100
+  );
 });
+
+const continents = computed(() => {
+  return listContinents();
+});
+
+const totalCountriesFoundOfContinent = (continent: string) => {
+  const countries = countriesOfContinent(continent);
+  const countriesFound = countryStore.getListCountries.filter((country) =>
+    countries.includes(country)
+  );
+  console.log(countriesFound);
+  return countriesFound.length;
+};
 </script>

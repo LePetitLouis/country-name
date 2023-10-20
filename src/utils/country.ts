@@ -1,4 +1,4 @@
-import { listCountry } from '../constants/list-country';
+import { listCountry } from '../constants/list-countries';
 
 export const isCountry = (country: string): boolean => {
   return listCountry.map((country) => country.name.toLowerCase()).includes(country.toLowerCase());
