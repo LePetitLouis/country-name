@@ -1318,3 +1318,16 @@ onMounted(() => {
     />
   </svg>
 </template>
+
+<style scoped lang="scss">
+path {
+  transition: fill 0.2s;
+  fill: #EDE7D9;
+  stroke: #030303;
+  stroke-width: 0.2px;
+
+  &.selected {
+    fill: #FABD40;
+  }
+}
+</style>

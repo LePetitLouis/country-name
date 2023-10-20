@@ -1,6 +1,7 @@
 <template>
-  <main class="relative flex justify-center h-full grow">
+  <main class="relative flex justify-center h-full grow bg-[#FBF6F2]">
     <div class="absolute w-96 max-w-full px-1 h-12 top-4 lg:top-32">
+      <AsideResponsive />
       <GenericInput
         :value="country"
         placeholder="Country"
@@ -18,13 +19,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import GenericInput from "./GenericInput.vue";
-import Map from "@/components/Map.vue"
+import GenericInput from "@/components/GenericInput.vue";
+import Map from "@/components/Map.vue";
+import AsideResponsive from "@/components/AsideResponsive.vue";
 
 import { isCountry, getCodeOfCountry } from "@/utils/country";
 
 import { useCountryStore } from "@/store/country";
-import { useSettingsStore } from '@/store/settings';
+import { useSettingsStore } from "@/store/settings";
 
 const countryStore = useCountryStore();
 const settingsStore = useSettingsStore();
@@ -43,7 +45,10 @@ const handleSubmit = () => {
   if (settingsStore.getShowWelcome) settingsStore.setShowWelcome(false);
 
   // If the country is already in the list, we don't add it again and we show an error message
-  if (isCountry(country.value) && countryStore.getListCountries.includes(getCodeOfCountry(country.value))) {
+  if (
+    isCountry(country.value) &&
+    countryStore.getListCountries.includes(getCodeOfCountry(country.value))
+  ) {
     alreadyFound.value = true;
     setTimeout(() => {
       alreadyFound.value = false;

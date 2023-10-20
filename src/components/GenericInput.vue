@@ -12,8 +12,8 @@
       v-if="alreadyFound"
       class="absolute right-0 top-0 z-50 h-full flex items-center my-auto pointer-events-none opacity-100 py-1 pr-1"
     >
-      <div class="bg-teal-500 rounded-full h-full flex items-center justify-center px-4">
-        <span class="text-white">Already found !</span>
+      <div class="bg-[#FABD40] rounded-lg h-full flex items-center justify-center px-4">
+        <span class="text-[#030303]">Already found !</span>
       </div>
     </div>
   </div>
@@ -51,7 +51,7 @@ const { value } = toRefs(props);
 
 const classObject = computed(() => {
   return {
-    "relative transition-shadow duration-300 z-40 w-full px-4 py-2 rounded-full text-lg font-bold shadow-lg text-blue-900 outline-none focus:ring-2 ring-blue-800 caret-current":
+    "relative transition-shadow duration-300 z-40 w-full px-4 py-2 rounded-lg text-lg font-bold shadow-lg text-blue-900 outline-none focus:ring-2 ring-blue-800 caret-current":
       true,
     "animate animate-shake": props.error,
   };
