@@ -11,7 +11,8 @@
   "dependencies": {
     "pinia": "^2.1.7",
     "sass": "^1.69.4",
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "vue-svg-pan-zoom": "^2.1.0"
   },
   "devDependencies": {
     "@types/node": "^20.8.7",

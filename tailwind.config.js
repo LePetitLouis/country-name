@@ -6,6 +6,11 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        'orange': '#FABD40',
+        'black': '#030303',
+        'beige': '#FBF6F2'
+      },
       animation: {
         'shake': 'shake .82s cubic-bezier(.36,.07,.19,.97) both',
       },

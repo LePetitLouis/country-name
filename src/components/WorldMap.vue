@@ -1,5 +1,5 @@
 <template>
-  <main class="relative flex justify-center h-full grow bg-[#FBF6F2]">
+  <main class="relative flex justify-center h-full grow bg-beige">
     <div class="absolute w-96 max-w-full px-1 h-12 top-4 lg:top-32">
       <AsideResponsive />
       <GenericInput

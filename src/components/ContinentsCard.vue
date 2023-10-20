@@ -11,10 +11,10 @@
       <ol class="grid grid-cols-2 gap-4">
         <template v-for="(continent, index) in continents" :key="index">
           <li class="flex flex-col justify-between mb-2">
-            <span class="text-sm text-blue-950">{{ continent }}</span>
-            <div class="h-1 w-full bg-neutral-200 dark:bg-neutral-600">
+            <span class="text-sm text-stone-800">{{ continent }}</span>
+            <div class="h-1 w-full bg-neutral-200">
               <div
-                class="h-1 bg-black"
+                class="h-1 bg-orange"
                 :style="{
                   width:
                     (totalCountriesFoundOfContinent(continent) /
@@ -36,7 +36,7 @@ import { computed } from "vue";
 
 import { useCountryStore } from "@/store/country";
 
-import { getCountAllCountry, getCountryByCode } from "@/utils/country";
+import { getCountAllCountry } from "@/utils/country";
 import {
   listContinents,
   countriesOfContinent,
