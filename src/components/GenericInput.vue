@@ -13,7 +13,7 @@
       class="absolute right-0 top-0 z-50 h-full flex items-center my-auto pointer-events-none opacity-100 py-1 pr-1"
     >
       <div class="bg-orange rounded-lg h-full flex items-center justify-center px-4">
-        <span class="text-black">Already found !</span>
+        <span class="text-white">Already found !</span>
       </div>
     </div>
   </div>
@@ -51,7 +51,7 @@ const { value } = toRefs(props);
 
 const classObject = computed(() => {
   return {
-    "relative transition-shadow duration-300 z-40 w-full px-4 py-2 rounded-lg text-lg font-bold shadow-lg text-blue-900 outline-none focus:ring-2 ring-stone-800 caret-current":
+    "relative transition-shadow duration-300 z-40 w-full px-4 py-2 rounded-lg text-lg font-bold shadow-lg text-stone-800 outline-none focus:ring-2 ring-stone-800 caret-current":
       true,
     "animate animate-shake": props.error,
   };
