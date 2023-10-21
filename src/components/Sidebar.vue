@@ -12,8 +12,8 @@
       </div>
       <ol>
         <template
-          v-for="(country, index) in countryStore.getListCountries"
-          :key="index"
+          v-for="country in countryStore.getListCountries"
+          :key="country"
         >
           <li
             class="transition-all duration-250 h-8 opacity-100 flex items-center"

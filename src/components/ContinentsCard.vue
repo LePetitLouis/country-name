@@ -9,7 +9,7 @@
     </div>
     <div>
       <ol class="grid grid-cols-2 gap-4">
-        <template v-for="(continent, index) in continents" :key="index">
+        <template v-for="continent in continents" :key="continent">
           <li class="flex flex-col justify-between mb-2">
             <div class="flex justify-between items-center">
               <span class="text-sm text-stone-800">{{ continent }}</span>

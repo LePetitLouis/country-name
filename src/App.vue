@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-
 import WorldMap from '@/components/WorldMap.vue';
 import Sidebar from '@/components/Sidebar.vue';
 import Welcome from '@/components/Welcome.vue';

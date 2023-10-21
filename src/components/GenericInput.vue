@@ -45,7 +45,10 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(["update:value", "submit"]);
+const emit = defineEmits<{
+  (e: "update:value", value: string): void;
+  (e: "submit"): void;
+}>();
 
 const { value } = toRefs(props);
 
