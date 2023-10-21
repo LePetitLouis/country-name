@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Analytics } from '@vercel/analytics/react';
-
 import WorldMap from '@/components/WorldMap.vue';
 import Sidebar from '@/components/Sidebar.vue';
 import Welcome from '@/components/Welcome.vue';
@@ -17,6 +15,5 @@ const settingsStore = useSettingsStore();
     <template v-if="settingsStore.getShowWelcome">
       <Welcome />
     </template>
-    <Analytics />
   </section>
 </template>
