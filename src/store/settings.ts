@@ -18,4 +18,5 @@ export const useSettingsStore = defineStore("settings", {
       this.showWelcome = showWelcome;
     },
   },
+  persist: true,
 });

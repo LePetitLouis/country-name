@@ -21,5 +21,6 @@ export const useCountryStore = defineStore("country", {
       this.listCountries = [];
     }
   },
+  persist: true,
 });
 
