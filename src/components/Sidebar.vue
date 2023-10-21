@@ -19,7 +19,7 @@
             class="transition-all duration-250 h-8 opacity-100 flex items-center"
           >
             <img
-              :src="`./src/assets/icons/${country.toLocaleLowerCase()}.svg`"
+              :src="`/icons/${country.toLocaleLowerCase()}.svg`"
               :alt="country"
               class="w-5 h-5 -mr-0.5"
             />
