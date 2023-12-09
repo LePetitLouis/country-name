@@ -17,6 +17,7 @@ interface RestCountriesState {
   countriesFound: string[];
   listCapitales: capitales[];
   capitalesFound: string[];
+  countrySelected: string;
 }
 
 const initialState: RestCountriesState = {
@@ -24,6 +25,7 @@ const initialState: RestCountriesState = {
   countriesFound: [],
   listCapitales: [],
   capitalesFound: [],
+  countrySelected: ''
 };
 
 export const useRestCountries = defineStore("restcountries", {
@@ -34,6 +36,7 @@ export const useRestCountries = defineStore("restcountries", {
     getAllCapitales: (state: RestCountriesState) => state.listCapitales,
     getCountriesFound: (state: RestCountriesState) => state.countriesFound,
     getCapitalesFound: (state: RestCountriesState) => state.capitalesFound,
+    getCountrySelected: (state: RestCountriesState) => state.countrySelected
   },
 
   actions: {
@@ -66,6 +69,10 @@ export const useRestCountries = defineStore("restcountries", {
 
     setNewCapitaleFound(capitale: string) {
       this.capitalesFound.unshift(capitale);
+    },
+
+    setCountrySelected(country: string) {
+      this.countrySelected = country;
     },
 
     resetStore() {

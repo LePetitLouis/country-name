@@ -43,6 +43,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  isViewCapital: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const emit = defineEmits<{

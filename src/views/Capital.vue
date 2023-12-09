@@ -9,7 +9,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
 import WorldMapCapitale from '@/components/capitale/WorldMapCapitale.vue';
 import SidebarCapitale from '@/components/capitale/SidebarCapitale.vue';
 import Welcome from '@/components/Welcome.vue';
