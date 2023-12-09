@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 
-import GenericInput from "@/components/GenericInput.vue";
+import GenericInput from "@/components/common/GenericInput.vue";
 import Map from "@/components/Map.vue";
 import AsideResponsive from "@/components/AsideResponsive.vue";
 
@@ -42,7 +42,7 @@ const handleChangeValue = (event: Event) => {
 
 const handleSubmit = () => {
   // If the welcome message is shown, we hide it
-  if (settingsStore.getShowWelcome) settingsStore.setShowWelcome(false);
+  if (settingsStore.getShowWelcomeCountry) settingsStore.setShowWelcomeCountry(false);
 
   // If the country is already in the list, we don't add it again and we show an error message
   if (

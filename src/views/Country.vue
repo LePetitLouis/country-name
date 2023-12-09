@@ -2,8 +2,8 @@
   <section class="flex flex-row items-center justify-between h-screen">
     <WorldMap />
     <Sidebar />
-    <template v-if="settingsStore.getShowWelcome">
-      <Welcome />
+    <template v-if="settingsStore.getShowWelcomeCountry">
+      <Welcome title="Type the name of a country, then press Enter." />
     </template>
   </section>
 </template>

@@ -5,3 +5,15 @@
     </transition>
   </router-view>
 </template>
+
+<script setup lang="ts">
+import { onMounted } from "vue";
+
+import { useRestCountries } from './store/restcountries';
+
+const restcountries = useRestCountries();
+
+onMounted(() => {
+  restcountries.fetchRestCountries();
+});
+</script>

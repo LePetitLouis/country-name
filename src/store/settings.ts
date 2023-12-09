@@ -1,21 +1,27 @@
 import { defineStore } from "pinia";
 
 interface SettingsState {
-  showWelcome: boolean;
+  showWelcomeCountry: boolean;
+  showWelcomeCapital: boolean;
 }
 
 const initialState: SettingsState = {
-  showWelcome: true,
+  showWelcomeCountry: true,
+  showWelcomeCapital: true,
 };
 
 export const useSettingsStore = defineStore("settings", {
   state: (): SettingsState => initialState,
   getters: {
-    getShowWelcome: (state) => state.showWelcome,
+    getShowWelcomeCountry: (state) => state.showWelcomeCountry,
+    getShowWelcomeCapital: (state) => state.showWelcomeCapital,
   },
   actions: {
-    setShowWelcome(showWelcome: boolean) {
-      this.showWelcome = showWelcome;
+    setShowWelcomeCountry(showWelcome: boolean) {
+      this.showWelcomeCountry = showWelcome;
+    },
+    setShowWelcomeCapitale(showWelcome: boolean) {
+      this.showWelcomeCapital = showWelcome;
     },
   },
   persist: true,
