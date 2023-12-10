@@ -65,7 +65,7 @@ const handleSubmit = () => {
   // If the welcome message is shown, we hide it
   if (settingsStore.getShowWelcomeCapital) settingsStore.setShowWelcomeCapitale(false);
 
-  if (countrySelected) {
+  if (countrySelected.value) {
     if (!isValidCapitalOfCountrySelected.value) {
       error.value = true;
       setTimeout(() => {
