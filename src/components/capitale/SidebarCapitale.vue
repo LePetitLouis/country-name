@@ -51,10 +51,8 @@ const label = computed(() => {
 });
 
 const getDetailsOfCapitale = (capitale: string) => {
-  const foundCapitale = restcountries.getAllCapitales.find((item) =>
+  return restcountries.getAllCapitales.find((item) =>
     item.capitale.toLocaleLowerCase().includes(capitale.toLocaleLowerCase())
   );
-
-  return foundCapitale;
 };
 </script>
