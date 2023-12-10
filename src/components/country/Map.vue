@@ -3,14 +3,14 @@ import { computed, onMounted, ref, watch } from "vue";
 
 import { SvgPanZoom } from "vue-svg-pan-zoom";
 
-import { useCountryStore } from "@/store/country";
+import { useRestCountries } from "@/store/restcountries";
 
-const countryStore = useCountryStore();
+const restcountries = useRestCountries();
 
 const paths = ref<NodeListOf<SVGPathElement>>();
 
 const listCountries = computed(() => {
-  return countryStore.getListCountries;
+  return restcountries.getCountriesFound;
 });
 
 watch(listCountries.value, () => {
@@ -1301,7 +1301,7 @@ onMounted(() => {
       stroke-width: 0.2px;
 
       &.selected {
-        fill: #fabd40;
+        fill: darkkhaki;
       }
     }
   }

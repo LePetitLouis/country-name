@@ -12,7 +12,7 @@
       </div>
       <ol>
         <template
-          v-for="country in countryStore.getListCountries"
+          v-for="country in restcountries.getCountriesFound"
           :key="country"
         >
           <li
@@ -36,19 +36,21 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { useCountryStore } from "@/store/country";
+import { useRestCountries } from "@/store/restcountries";
 
-import { getCountryByCode } from "@/utils/country";
+import ContinentsCard from "@/components/country/ContinentsCard.vue";
 
-import ContinentsCard from "@/components/ContinentsCard.vue";
-
-const countryStore = useCountryStore();
+const restcountries = useRestCountries();
 
 const totalCountriesFound = computed(() => {
-  return countryStore.getListCountries.length;
+  return restcountries.getCountriesFound.length;
 });
 
+const getCountryByCode = (code: string) => {
+  return restcountries.getAllCountries.find((country) => country.code === code)?.name
+}
+
 const label = computed(() => {
-  return countryStore.getListCountries.length > 1 ? "countries" : "country";
+  return totalCountriesFound.value > 1 ? "countries" : "country";
 });
 </script>

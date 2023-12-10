@@ -35,30 +35,23 @@
 <script setup lang="ts">
 import { computed } from "vue";
 
-import { useCountryStore } from "@/store/country";
+import { useRestCountries } from "@/store/restcountries";
 
-import { getCountAllCountry } from "@/utils/country";
-import {
-  listContinents,
-  countriesOfContinent,
-  totalCountriesOfContinent,
-} from "@/utils/continent";
-
-const countryStore = useCountryStore();
+const restcountries = useRestCountries();
 
 const percentageOffound = computed(() => {
   return Math.round(
-    (countryStore.getListCountries.length / getCountAllCountry()) * 100
+    (restcountries.getCountriesFound.length / restcountries.getAllCountries.length) * 100
   );
 });
 
 const continents = computed(() => {
-  return listContinents();
+  return restcountries.getContinents
 });
 
 const totalCountriesFoundOfContinent = (continent: string) => {
-  const countries = countriesOfContinent(continent);
-  const countriesFound = countryStore.getListCountries.filter((country) =>
+  const countries = restcountries.getCountriesByContinent[continent];
+  const countriesFound = restcountries.getCountriesFound.filter((country) =>
     countries.includes(country)
   );
   return countriesFound.length;
@@ -67,7 +60,7 @@ const totalCountriesFoundOfContinent = (continent: string) => {
 const percentageCountriesFoundByContinent = (continent: string) => {
   return (
     Math.round((totalCountriesFoundOfContinent(continent) /
-      totalCountriesOfContinent(continent)) *
+    restcountries.getCountriesByContinent[continent].length) *
     100)
   );
 };

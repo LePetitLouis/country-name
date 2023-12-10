@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import WorldMapCapitale from '@/components/capitale/WorldMapCapitale.vue';
 import SidebarCapitale from '@/components/capitale/SidebarCapitale.vue';
-import Welcome from '@/components/Welcome.vue';
+import Welcome from '@/components/common/Welcome.vue';
 
 import { useSettingsStore } from '@/store/settings';
 

@@ -36,7 +36,17 @@ export const useRestCountries = defineStore("restcountries", {
     getAllCapitales: (state: RestCountriesState) => state.listCapitales,
     getCountriesFound: (state: RestCountriesState) => state.countriesFound,
     getCapitalesFound: (state: RestCountriesState) => state.capitalesFound,
-    getCountrySelected: (state: RestCountriesState) => state.countrySelected
+    getCountrySelected: (state: RestCountriesState) => state.countrySelected,
+    getContinents: (state) => [...new Set(state.listCountries.map(country => country.continent))],
+    getCountriesByContinent: (state) => {
+      return state.listCountries.reduce((acc: any, country) => {
+        if (!acc[country.continent]) {
+            acc[country.continent] = [];
+        }
+        acc[country.continent].push(country.code);
+        return acc;
+      }, {});
+    },
   },
 
   actions: {
@@ -48,7 +58,7 @@ export const useRestCountries = defineStore("restcountries", {
         return {
           code: country.cca2,
           name: country.name.common,
-          continent: country.continents,
+          continent: country.continents[0],
         };
       });
       this.listCountries = retrieveAllCountries;

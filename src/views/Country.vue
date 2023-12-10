@@ -9,9 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import WorldMap from '@/components/WorldMap.vue';
-import Sidebar from '@/components/Sidebar.vue';
-import Welcome from '@/components/Welcome.vue';
+import WorldMap from '@/components/country/WorldMap.vue';
+import Sidebar from '@/components/country/Sidebar.vue';
+import Welcome from '@/components/common/Welcome.vue';
 
 import { useSettingsStore } from '@/store/settings';
 

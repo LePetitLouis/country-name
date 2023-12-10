@@ -46,13 +46,11 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 
-import ContinentsCard from "@/components/ContinentsCard.vue";
+import ContinentsCard from "@/components/country/ContinentsCard.vue";
 
-import { useCountryStore } from "@/store/country";
+import { useRestCountries } from "@/store/restcountries";
 
-import { getCountAllCountry } from "@/utils/country";
-
-const countryStore = useCountryStore();
+const restcountries = useRestCountries();
 
 const showDetails = ref(false);
 
@@ -66,7 +64,7 @@ const classObject = computed(() => {
 
 const percentageOffound = computed(() => {
   return Math.round(
-    (countryStore.getListCountries.length / getCountAllCountry()) * 100
+    (restcountries.getCountriesFound.length / restcountries.getAllCountries.length) * 100
   );
 });
 </script>
