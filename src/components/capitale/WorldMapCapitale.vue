@@ -49,8 +49,7 @@ const isValidCapitalOfCountrySelected = computed(() => {
 });
 
 const formatedCapital = (capital: string) => {
-  console.log(capital.replaceAll(/[.,\s]/g, '').trim().toLocaleLowerCase());
-  return capital.replaceAll(/[.,\s]/g, '').trim().toLocaleLowerCase();
+  return capital.replaceAll(/[.,\s-]/g, '').trim().toLocaleLowerCase();
 }
 
 const getDetailsOfCapitale = (code: string) => {
