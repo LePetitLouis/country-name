@@ -55,6 +55,7 @@ export const useRestCountries = defineStore("restcountries", {
 
       const retrieveAllCapitales = body
         .filter((country: any) => country.hasOwnProperty("capital"))
+        .filter((country: any) => country.capital[0] !== 'Washington DC')
         .map((country: any) => ({
           code: country.cca2,
           capitale: country.capital[0],

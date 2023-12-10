@@ -35,7 +35,7 @@ const listAllCapitales = computed(() => {
 })
 
 const isValidCapitale = computed(() => {
-  return listAllCapitales.value.some((item) => item.capitale.toLocaleLowerCase() === capitale.value.toLocaleLowerCase());
+  return listAllCapitales.value.some((item) => formatedCapital(item.capitale) === formatedCapital(capitale.value));
 });
 
 const placeholderInput = computed(() => {
@@ -45,21 +45,30 @@ const placeholderInput = computed(() => {
 });
 
 const isValidCapitalOfCountrySelected = computed(() => {
-  return getDetailsOfCapitale(countrySelected.value)?.capitale.toLocaleLowerCase() === capitale.value.toLocaleLowerCase()
+  return formatedCapital(capitale.value) === formatedCapital(getDetailsOfCapitale(countrySelected.value)?.capitale || '');
 });
 
+const formatedCapital = (capital: string) => {
+  console.log(capital.replaceAll(/[.,\s]/g, '').trim().toLocaleLowerCase());
+  return capital.replaceAll(/[.,\s]/g, '').trim().toLocaleLowerCase();
+}
+
 const getDetailsOfCapitale = (code: string) => {
-  const foundCapitale = restcountries.getAllCapitales.find((item) =>
+  return restcountries.getAllCapitales.find((item) =>
     item.code.toLocaleLowerCase().includes(code.toLocaleLowerCase())
   );
-
-  return foundCapitale || null;
 };
 
 const handleChangeValue = (event: Event) => {
   const target = event.target as HTMLInputElement;
   capitale.value = target.value;
 };
+
+const getCorrectFormatCapital = (capitalFound: string) => {
+  return restcountries.getAllCapitales.find((item) =>
+    formatedCapital(item.capitale) === formatedCapital(capitalFound)
+  );
+}
 
 const handleSubmit = () => {
   // If the welcome message is shown, we hide it
@@ -73,7 +82,7 @@ const handleSubmit = () => {
       }, 1000);
       return;
     } 
-    restcountries.setNewCapitaleFound(capitale.value.toLocaleLowerCase());
+    restcountries.setNewCapitaleFound(getCorrectFormatCapital(capitale.value || '')?.capitale || '');
     restcountries.setCountrySelected('');
     capitale.value = "";
     return;
@@ -94,7 +103,7 @@ const handleSubmit = () => {
 
   // If the capitale is valid, we add it to the list
   if (isValidCapitale.value) {
-    restcountries.setNewCapitaleFound(capitale.value.toLocaleLowerCase());
+    restcountries.setNewCapitaleFound(getCorrectFormatCapital(capitale.value || '')?.capitale || '');
     capitale.value = "";
     return;
   }
