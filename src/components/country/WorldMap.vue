@@ -16,8 +16,6 @@ import GenericInput from "@/components/common/GenericInput.vue";
 import Map from "@/components/country/Map.vue";
 import AsideResponsive from "@/components/country/AsideResponsive.vue";
 
-// import { isCountry, getCodeOfCountry } from "@/utils/country";
-
 import { useSettingsStore } from "@/store/settings";
 import { useRestCountries } from "@/store/restcountries";
 
