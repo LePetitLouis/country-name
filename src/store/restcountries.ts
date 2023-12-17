@@ -22,6 +22,7 @@ interface RestCountriesState {
   pinContinent: string;
   pinTimer: number;
   listPinCountries: countries[];
+  totalPinCountries: number,
   pinCountriesFound: string[];
 }
 
@@ -34,6 +35,7 @@ const initialState: RestCountriesState = {
   pinContinent: "",
   pinTimer: 0,
   listPinCountries: [],
+  totalPinCountries: 0,
   pinCountriesFound: [],
 };
 
@@ -61,6 +63,8 @@ export const useRestCountries = defineStore("restcountries", {
     getPinCountriesFound: (state: RestCountriesState) => state.pinCountriesFound,
     getListPinCountries: (state: RestCountriesState) => state.listPinCountries,
     getPinTimer: (state: RestCountriesState) => state.pinTimer,
+    getTotalPinCountries: (state: RestCountriesState) => state.totalPinCountries,
+    getPinContinent: (state: RestCountriesState) => state.pinContinent,
   },
 
   actions: {
@@ -102,11 +106,13 @@ export const useRestCountries = defineStore("restcountries", {
 
     setPinContient(continent: string) {
       this.pinContinent = continent;
-      if (continent === 'all') this.listPinCountries = shuffleArray(this.listCountries);
-      else {
+      if (continent === 'all') {
+        this.listPinCountries = shuffleArray(this.listCountries);
+      } else {
         const filterListCountries = this.listCountries.filter(country => country.continent === continent);
         this.listPinCountries = shuffleArray(filterListCountries);
       }
+      this.totalPinCountries = this.listPinCountries.length;
     },
 
     setListPinCountries(code: string) {

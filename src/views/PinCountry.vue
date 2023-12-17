@@ -1,6 +1,6 @@
 <template>
   <section class="flex flex-row items-center justify-between h-screen">
-    <WorldMapPinCountry @selected:country="checkIsGoodCountry" />
+    <WorldMapPinCountry :current-country="currentContry?.name" @selected:country="checkIsGoodCountry" />
     <SidebarPinCountry :current-country="currentContry?.name" @end:timer="stopGame" @click:next="nextCountry" />
     <template v-if="settingsStore.getShowWelcomePinCountry">
       <WelcomeSetting />
@@ -37,7 +37,14 @@ const currentContry = computed(() => {
 
 const checkIsGoodCountry = (code: string) => {
   console.log(code, currentContry.value.code)
-  if (currentContry.value.code !== code) return
+  if (currentContry.value.code !== code) {
+    document.querySelector(`.world-map #${code}`)?.classList.add('error');
+    setTimeout(() => {
+      document.querySelector(`.world-map #${code}`)?.classList.remove('error', 'hovered');
+    }, 500);
+    
+    return
+  }
 
   restcountries.setPinCountryFound(code);
   restcountries.setListPinCountries(code);
@@ -52,13 +59,16 @@ const stopGame = () => {
 };
 
 const goToHome = () => {
-  router.push({ name: 'Home' });
+  restcountries.resetPinCountries();
+  settingsStore.setShowWelcomePinCountry(true);
   showResult.value = false;
+  router.push({ name: 'Home' });
 };
 
 const handleTryAgain = () => {
   restcountries.resetPinCountries();
   settingsStore.setShowWelcomePinCountry(true);
   showResult.value = false;
+  document.querySelectorAll('.world-map path').forEach(path => path.classList.remove('selected'));
 }
 </script>
