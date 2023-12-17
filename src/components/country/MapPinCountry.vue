@@ -5,17 +5,21 @@ import { SvgPanZoom } from "vue-svg-pan-zoom";
 
 import { useRestCountries } from "@/store/restcountries";
 
+const emit = defineEmits<{
+  (e: "selected:country", value: string): void;
+}>();
+
 const restcountries = useRestCountries();
 
 const paths = ref<NodeListOf<SVGPathElement>>();
 
 const listCountries = computed(() => {
-  return restcountries.getCountriesFound;
+  return restcountries.getPinCountriesFound;
 });
 
-watch(listCountries.value, () => {
+watch(() => listCountries.value, () => {
   countriesIsSelected();
-});
+}, { deep: true });
 
 const countriesIsSelected = () => {
   paths.value &&
@@ -24,9 +28,19 @@ const countriesIsSelected = () => {
     });
 };
 
+const addClickOnPath = () => {
+  paths.value?.forEach((path) => {
+    path.classList.add('cursor-pointer');
+    path.addEventListener('click', () => {
+      if (path.classList.contains('selected')) return;
+      emit('selected:country', path.id);
+    });
+  });
+};
+
 onMounted(() => {
   paths.value = document.querySelectorAll("path");
-  countriesIsSelected();
+  addClickOnPath();
 });
 </script>
 
@@ -38,7 +52,7 @@ onMounted(() => {
     :center="true"
     :zoomScaleSensitivity="0.5"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" class="world-map">
       <path
         d="m 479.68275,331.6274 -0.077,0.025 -0.258,0.155 -0.147,0.054 -0.134,0.027 -0.105,-0.011 -0.058,-0.091 0.006,-0.139 -0.024,-0.124 -0.02,-0.067 0.038,-0.181 0.086,-0.097 0.119,-0.08 0.188,0.029 0.398,0.116 0.083,0.109 10e-4,0.072 -0.073,0.119 z"
         title="Andorra"
@@ -1301,6 +1315,10 @@ onMounted(() => {
 
       &.selected {
         fill: darkkhaki;
+      }
+
+      &.error {
+        fill: #D92525;
       }
     }
   }

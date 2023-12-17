@@ -18,6 +18,12 @@ interface RestCountriesState {
   listCapitales: capitales[];
   capitalesFound: string[];
   countrySelected: string;
+
+  pinContinent: string;
+  pinTimer: string;
+  listPinCountries: countries[];
+  totalPinCountries: number;
+  pinCountriesFound: string[];
 }
 
 const initialState: RestCountriesState = {
@@ -25,7 +31,12 @@ const initialState: RestCountriesState = {
   countriesFound: [],
   listCapitales: [],
   capitalesFound: [],
-  countrySelected: ''
+  countrySelected: "",
+  pinContinent: "",
+  pinTimer: "",
+  listPinCountries: [],
+  totalPinCountries: 0,
+  pinCountriesFound: [],
 };
 
 export const useRestCountries = defineStore("restcountries", {
@@ -37,16 +48,25 @@ export const useRestCountries = defineStore("restcountries", {
     getCountriesFound: (state: RestCountriesState) => state.countriesFound,
     getCapitalesFound: (state: RestCountriesState) => state.capitalesFound,
     getCountrySelected: (state: RestCountriesState) => state.countrySelected,
-    getContinents: (state) => [...new Set(state.listCountries.map(country => country.continent))],
+    getContinents: (state) => [
+      ...new Set(state.listCountries.map((country) => country.continent)),
+    ],
     getCountriesByContinent: (state) => {
       return state.listCountries.reduce((acc: any, country) => {
         if (!acc[country.continent]) {
-            acc[country.continent] = [];
+          acc[country.continent] = [];
         }
         acc[country.continent].push(country.code);
         return acc;
       }, {});
     },
+    getPinCountriesFound: (state: RestCountriesState) =>
+      state.pinCountriesFound,
+    getListPinCountries: (state: RestCountriesState) => state.listPinCountries,
+    getPinTimer: (state: RestCountriesState) => state.pinTimer,
+    getTotalPinCountries: (state: RestCountriesState) =>
+      state.totalPinCountries,
+    getPinContinent: (state: RestCountriesState) => state.pinContinent,
   },
 
   actions: {
@@ -65,7 +85,7 @@ export const useRestCountries = defineStore("restcountries", {
 
       const retrieveAllCapitales = body
         .filter((country: any) => country.hasOwnProperty("capital"))
-        .filter((country: any) => country.capital[0] !== 'Washington DC')
+        .filter((country: any) => country.capital[0] !== "Washington DC")
         .map((country: any) => ({
           code: country.cca2,
           capitale: country.capital[0],
@@ -86,6 +106,48 @@ export const useRestCountries = defineStore("restcountries", {
       this.countrySelected = country;
     },
 
+    setPinContient(continent: string) {
+      this.pinContinent = continent;
+      if (continent === "all") {
+        this.listPinCountries = shuffleArray(this.listCountries);
+      } else {
+        const filterListCountries = this.listCountries.filter(
+          (country) => country.continent === continent
+        );
+        this.listPinCountries = shuffleArray(filterListCountries);
+      }
+      this.totalPinCountries = this.listPinCountries.length;
+    },
+
+    setListPinCountries(code: string) {
+      this.listPinCountries = this.listPinCountries.filter(
+        (country) => country.code !== code
+      );
+    },
+
+    setNextPinCountry() {
+      if (!this.listPinCountries.length) return;
+
+      const cloneListPinCountries = [...this.listPinCountries];
+      cloneListPinCountries.shift();
+      this.listPinCountries = cloneListPinCountries;
+    },
+
+    setPinTimer(timer: string) {
+      this.pinTimer = timer;
+    },
+
+    setPinCountryFound(country: string) {
+      this.pinCountriesFound.unshift(country);
+    },
+
+    resetPinCountries() {
+      this.pinCountriesFound = [];
+      this.pinContinent = "";
+      this.pinTimer = "";
+      this.listPinCountries = [];
+    },
+
     resetStore() {
       this.$state = initialState;
     },
@@ -93,3 +155,12 @@ export const useRestCountries = defineStore("restcountries", {
 
   persist: true,
 });
+
+const shuffleArray = (array: any) => {
+  const shuffledArray = [...array];
+  for (let i = shuffledArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+  }
+  return shuffledArray;
+};

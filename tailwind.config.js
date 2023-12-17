@@ -9,7 +9,9 @@ export default {
       colors: {
         'orange': '#FABD40',
         'black': '#030303',
-        'beige': '#FBF6F2'
+        'beige': '#FBF6F2',
+        'black-transparent': '#131616',
+        'black-base': '#16161A',
       },
       animation: {
         'shake': 'shake .82s cubic-bezier(.36,.07,.19,.97) both',
