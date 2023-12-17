@@ -17,9 +17,9 @@ const listCountries = computed(() => {
   return restcountries.getPinCountriesFound;
 });
 
-watch(listCountries.value, () => {
+watch(() => listCountries.value, () => {
   countriesIsSelected();
-});
+}, { deep: true });
 
 const countriesIsSelected = () => {
   paths.value &&
@@ -40,7 +40,6 @@ const addClickOnPath = () => {
 
 onMounted(() => {
   paths.value = document.querySelectorAll("path");
-  countriesIsSelected();
   addClickOnPath();
 });
 </script>

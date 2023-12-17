@@ -1,7 +1,7 @@
 <template>
   <section class="flex flex-col gap-9 items-center justify-center h-screen">
     <h1 class="text-3xl font-black">Choose a game</h1>
-    <div class="flex flex-row flex-wrap gap-5 items-start justify-center">
+    <div class="flex flex-row flex-wrap gap-5 items-stretch justify-center">
       <router-link :to="{ name: 'Country' }" class="max-w-xs p-4 rounded-md border border-stone-300 hover:bg-stone-100">
         <h2 class="text-xl font-bold">Country Game</h2>
         <p class="text-stone-800">Retrieve all the countries in the world from your memory</p>
