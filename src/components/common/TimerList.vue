@@ -10,8 +10,8 @@
       </li>
     </template>
     <li
-      :class="`cursor-pointer transition-all duration-250 h-8 flex items-center p-4 border border-slate-600 hover:bg-slate-500 ${timer === 0 && 'bg-slate-500'}`"
-      @click="$emit('update-timer', 0)">
+      :class="`cursor-pointer transition-all duration-250 h-8 flex items-center p-4 border border-slate-600 hover:bg-slate-500 ${timer === 'no-timer' && 'bg-slate-500'}`"
+      @click="$emit('update-timer', 'no timer')">
       <span class="text-l">
         No timer
       </span>
@@ -24,12 +24,12 @@ import { toRefs } from 'vue';
 
 const props = defineProps({
   timer: {
-    type: Number,
+    type: String,
     required: true
   }
 });
 
 const { timer } = toRefs(props);
 
-const timers = [1, 2, 3, 4, 5];
+const timers = ['1', '2', '3', '4', '5'];
 </script>

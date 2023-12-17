@@ -5,16 +5,12 @@
     <template v-if="settingsStore.getShowWelcomePinCountry">
       <WelcomeSetting />
     </template>
+    <ResultModal v-if="showResult" @click:home="goToHome" @click:try-again="handleTryAgain" />
   </section>
-  <ResultModal 
-    v-if="showResult" 
-    @click:home="goToHome"
-    @click:try-again="handleTryAgain"
-  />
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 import WorldMapPinCountry from '@/components/country/WorldMapPinCountry.vue';
@@ -35,14 +31,17 @@ const currentContry = computed(() => {
   return restcountries.getListPinCountries[0];
 });
 
+watch(currentContry, (newValue) => {
+  if (newValue === undefined && !settingsStore.getShowWelcomePinCountry) stopGame()
+})
+
 const checkIsGoodCountry = (code: string) => {
-  console.log(code, currentContry.value.code)
   if (currentContry.value.code !== code) {
     document.querySelector(`.world-map #${code}`)?.classList.add('error');
     setTimeout(() => {
-      document.querySelector(`.world-map #${code}`)?.classList.remove('error', 'hovered');
+      document.querySelector(`.world-map #${code}`)?.classList.remove('error');
     }, 500);
-    
+
     return
   }
 
@@ -70,5 +69,11 @@ const handleTryAgain = () => {
   settingsStore.setShowWelcomePinCountry(true);
   showResult.value = false;
   document.querySelectorAll('.world-map path').forEach(path => path.classList.remove('selected'));
-}
+};
+
+onMounted(() => {
+  restcountries.resetPinCountries();
+  settingsStore.setShowWelcomePinCountry(true);
+  showResult.value = false;
+})
 </script>

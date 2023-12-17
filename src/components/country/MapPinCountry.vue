@@ -33,10 +33,7 @@ const addClickOnPath = () => {
     path.classList.add('cursor-pointer');
     path.addEventListener('click', () => {
       if (path.classList.contains('selected')) return;
-      paths.value?.forEach(path => path.classList.remove('hovered'));
-
       emit('selected:country', path.id);
-      path.classList.add('hovered');
     });
   });
 };

@@ -20,9 +20,9 @@ interface RestCountriesState {
   countrySelected: string;
 
   pinContinent: string;
-  pinTimer: number;
+  pinTimer: string;
   listPinCountries: countries[];
-  totalPinCountries: number,
+  totalPinCountries: number;
   pinCountriesFound: string[];
 }
 
@@ -33,7 +33,7 @@ const initialState: RestCountriesState = {
   capitalesFound: [],
   countrySelected: "",
   pinContinent: "",
-  pinTimer: 0,
+  pinTimer: "",
   listPinCountries: [],
   totalPinCountries: 0,
   pinCountriesFound: [],
@@ -60,10 +60,12 @@ export const useRestCountries = defineStore("restcountries", {
         return acc;
       }, {});
     },
-    getPinCountriesFound: (state: RestCountriesState) => state.pinCountriesFound,
+    getPinCountriesFound: (state: RestCountriesState) =>
+      state.pinCountriesFound,
     getListPinCountries: (state: RestCountriesState) => state.listPinCountries,
     getPinTimer: (state: RestCountriesState) => state.pinTimer,
-    getTotalPinCountries: (state: RestCountriesState) => state.totalPinCountries,
+    getTotalPinCountries: (state: RestCountriesState) =>
+      state.totalPinCountries,
     getPinContinent: (state: RestCountriesState) => state.pinContinent,
   },
 
@@ -106,17 +108,21 @@ export const useRestCountries = defineStore("restcountries", {
 
     setPinContient(continent: string) {
       this.pinContinent = continent;
-      if (continent === 'all') {
+      if (continent === "all") {
         this.listPinCountries = shuffleArray(this.listCountries);
       } else {
-        const filterListCountries = this.listCountries.filter(country => country.continent === continent);
+        const filterListCountries = this.listCountries.filter(
+          (country) => country.continent === continent
+        );
         this.listPinCountries = shuffleArray(filterListCountries);
       }
       this.totalPinCountries = this.listPinCountries.length;
     },
 
     setListPinCountries(code: string) {
-      this.listPinCountries = this.listPinCountries.filter(country => country.code !== code);
+      this.listPinCountries = this.listPinCountries.filter(
+        (country) => country.code !== code
+      );
     },
 
     setNextPinCountry() {
@@ -127,7 +133,7 @@ export const useRestCountries = defineStore("restcountries", {
       this.listPinCountries = cloneListPinCountries;
     },
 
-    setPinTimer(timer: number) {
+    setPinTimer(timer: string) {
       this.pinTimer = timer;
     },
 
@@ -136,9 +142,9 @@ export const useRestCountries = defineStore("restcountries", {
     },
 
     resetPinCountries() {
-      this.pinCountriesFound = []
+      this.pinCountriesFound = [];
       this.pinContinent = "";
-      this.pinTimer = 0;
+      this.pinTimer = "";
       this.listPinCountries = [];
     },
 
@@ -157,4 +163,4 @@ const shuffleArray = (array: any) => {
     [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
   }
   return shuffledArray;
-}
+};

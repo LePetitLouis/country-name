@@ -10,7 +10,11 @@
         </button>
       </div>
       
-      <Timer v-if="restcountries.getPinTimer !== 0" :duration="restcountries.getPinTimer" @end:timer="$emit('end:timer')" />
+      <Timer 
+        v-if="restcountries.getPinTimer !== 'no timer' && restcountries.getPinTimer" 
+        :duration="parseInt(restcountries.getPinTimer)" 
+        @end:timer="$emit('end:timer')" 
+      />
     </div>
     <ContinentsCard v-else />
     <div class="absolute bottom-0 right-0">
@@ -53,6 +57,7 @@
 import { computed, ref, toRefs } from "vue";
 
 import ContinentsCard from "@/components/country/ContinentsCard.vue";
+import Timer from "@/components/common/Timer.vue";
 
 import { useRestCountries } from "@/store/restcountries";
 

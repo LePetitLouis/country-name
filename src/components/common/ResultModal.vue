@@ -35,7 +35,7 @@ const score = ref(restcountries.getPinCountriesFound.length);
 const total = ref(restcountries.getTotalPinCountries);
 
 const timer = computed(() => {
-  return restcountries.getPinTimer === 0 ? 'no timer' : `${restcountries.getPinTimer}min`
+  return restcountries.getPinTimer === 'no timer' ? 'No timer' : `${restcountries.getPinTimer}min`
 })
 
 const updateCircleScore = () => {

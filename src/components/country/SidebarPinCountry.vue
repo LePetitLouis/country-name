@@ -10,7 +10,11 @@
         </button>
       </div>
       
-      <Timer v-if="restcountries.getPinTimer !== 0" :duration="restcountries.getPinTimer" @end:timer="$emit('end:timer')" />
+      <Timer 
+        v-if="restcountries.getPinTimer !== 'no timer' && restcountries.getPinTimer" 
+        :duration="parseInt(restcountries.getPinTimer)" 
+        @end:timer="$emit('end:timer')" 
+      />
     </div>
     <hr class="w-full border-b border-stone-300 my-4" />
     <div v-if="totalCountriesFound">

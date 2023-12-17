@@ -46,7 +46,7 @@ const settingsStore = useSettingsStore();
 
 const settings = ref({
   continent: '', // asia, africa, oceania, europe, south america, north america, all
-  timer: 10 // in minute
+  timer: '' // in minute
 });
 
 const disabledButton = computed(() => {
