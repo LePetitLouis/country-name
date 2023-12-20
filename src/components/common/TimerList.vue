@@ -10,7 +10,7 @@
       </li>
     </template>
     <li
-      :class="`cursor-pointer transition-all duration-250 h-8 flex items-center p-4 border border-slate-600 hover:bg-slate-500 ${timer === 'no-timer' && 'bg-slate-500'}`"
+      :class="`cursor-pointer transition-all duration-250 h-8 flex items-center p-4 border border-slate-600 hover:bg-slate-500 ${timer === 'no timer' && 'bg-slate-500'}`"
       @click="$emit('update-timer', 'no timer')">
       <span class="text-l">
         No timer
